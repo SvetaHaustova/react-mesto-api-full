@@ -1,0 +1,5 @@
+.place__like_active {
+    background: url(../../../../images/elements/like-active.svg) no-repeat center;
+    border: none;
+    outline: none;
+}

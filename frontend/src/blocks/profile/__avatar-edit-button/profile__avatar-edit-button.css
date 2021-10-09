@@ -1,0 +1,11 @@
+.profile__avatar-edit-button {
+    background: url(../../../images/profile/edit-avatar-button.svg) no-repeat center;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    width: 26px;
+    height: 26px;
+}

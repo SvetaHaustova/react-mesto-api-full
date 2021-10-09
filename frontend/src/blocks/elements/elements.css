@@ -1,0 +1,11 @@
+.elements {
+    font-family: 'Inter', Arial, sans-serif;
+    max-width: 68.75%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .elements {
+        max-width: 88%;
+    }
+}
