@@ -31,35 +31,22 @@ function App() {
     const [userEmail, setUserEmail] = React.useState('');
 
     React.useEffect(() => {   
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
+        if (loggedIn) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
             .then(([user, cards]) => {
-                setCurrentUser(user);
-                setCards(cards);
+                setCurrentUser(user.data);
+                setCards(cards.data);
             })
             .catch((err) => {
                 console.log(err);
             })
-    }, [])
-
-    //React.useEffect(() => {
-    //    const jwt = localStorage.getItem('jwt');
-    //    if (jwt) {
-    //        auth.checkToken(jwt)
-    //        .then((res) => {
-    //            setUserEmail(res.data.email);
-    //            setLoggedIn(true);
-    //            history.push('/');
-    //        })
-    //        .catch((err) => {
-    //            console.log(err);
-    //        })
-    //    }
-    //}, [history])
+        }
+    }, [loggedIn])
 
     React.useEffect(() => {
         auth.checkToken()
-        .then((res) => {
-            setUserEmail(res.data.email);
+        .then((data) => {
+            setUserEmail(data.email);
             setLoggedIn(true);
             history.push('/');
         })
@@ -95,7 +82,7 @@ function App() {
     function handleUpdateUser(data) {
         api.editUserInfo({name: data.name, profession: data.about})
         .then((res) => {
-            setCurrentUser(res);
+            setCurrentUser(res.data);
             closeAllPopups();
         })
         .catch((err) => {
@@ -106,7 +93,7 @@ function App() {
     function handleUpdateAvatar(data) {
         api.editAvatarUser({ avatar: data.avatar })
         .then((res) => {
-            setCurrentUser(res);
+            setCurrentUser(res.data);
             closeAllPopups();
         })
         .catch((err) => {
@@ -117,7 +104,7 @@ function App() {
     function handleAddPlaceSubmit(data) {
         api.addNewCard({ name: data.name, link: data.link })
         .then((newCard) => {
-            setCards([newCard, ...cards]);
+            setCards([newCard.data, ...cards]);
             closeAllPopups();
         })
         .catch((err) => {
@@ -126,10 +113,10 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some((i) => i === currentUser._id);
         api.changeLikeCardStatus(card._id, !isLiked)
         .then((res) => {
-            setCards((state) => state.map((c) => c._id === card._id ? res : c));
+            setCards((state) => state.map((c) => c._id === card._id ? res.data : c));
         })
         .catch((err) => {
             console.log(err);
@@ -177,7 +164,6 @@ function App() {
     }
 
     function handleSignOut() {
-        localStorage.removeItem("jwt");
         setLoggedIn(false);
         setUserEmail('');
         history.push('/sign-in');

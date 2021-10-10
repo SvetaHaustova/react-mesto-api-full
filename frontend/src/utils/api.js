@@ -53,14 +53,14 @@ class Api {
 
     changeLikeCardStatus(cardId, isLiked) {
         if (isLiked) {
-            return fetch(`${this._url}/cards/likes/${cardId}`, {
+            return fetch(`${this._url}/cards/${cardId}/likes`, {
                 method: 'PUT',
                 headers: this._headers,
                 credentials: 'include'
             })
             .then((res) => this._checkResponse(res))
         } else {
-            return fetch(`${this._url}/cards/likes/${cardId}`, {
+            return fetch(`${this._url}/cards/${cardId}/likes`, {   
                 method: 'DELETE',
                 headers: this._headers,
                 credentials: 'include'
@@ -111,6 +111,7 @@ class Api {
 
 const api = new Api({
     url: 'https://api.sightsofrussia.nomoredomains.monster',
+    //url: 'http://localhost:3000',
     headers: {
         'Content-Type': 'application/json'
     }

@@ -1,4 +1,6 @@
 export const BASE_URL = "https://api.sightsofrussia.nomoredomains.monster";
+//export const BASE_URL = "http://localhost:3000";
+
 
 function handleCheckResponse(res) {
     if (res.ok) {
@@ -20,24 +22,6 @@ export const register = (email, password) => {
     .then((res) => handleCheckResponse(res));
 };
 
-//export const authorize = (email, password) => {
-//    return fetch(`${BASE_URL}/signin`, {
-//        method: "POST",
-//        credentials: "include",
-//        headers: {
-//            "Content-Type": "application/json",
-//        },
-//        body: JSON.stringify({ email, password }),
-//    })
-//    .then((res) => handleCheckResponse(res))
-//    .then((data) => {
-//        if (data.token) {
-//            localStorage.setItem('jwt', data.token);
-//            return data;
-//        }
-//    })
-//};
-
 export const authorize = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
         method: "POST",
@@ -49,18 +33,6 @@ export const authorize = (email, password) => {
     })
     .then((res) => handleCheckResponse(res));
 };
-
-//export const checkToken = (token) => {
-//    return fetch(`${BASE_URL}/users/me`, {
-//        method: "GET",
-//        credentials: "include",
-//        headers: {
-//           "Content-Type": "application/json",
-//            "Authorization": `Bearer ${token}`,
-//        },
-//    })
-//    .then((res) => handleCheckResponse(res));
-//};
 
 export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
