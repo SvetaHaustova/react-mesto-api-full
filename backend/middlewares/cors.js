@@ -9,7 +9,7 @@ const allowedCors = [
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-const corsMiddleware = (req, res, next) => {
+const cors = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
@@ -28,4 +28,4 @@ const corsMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = corsMiddleware;
+module.exports = cors;
