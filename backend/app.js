@@ -12,14 +12,14 @@ const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-error');
 const regex = require('./utils/regex');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const corsMiddleware = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.use(corsMiddleware);
+app.use(cors);
 app.use(requestLogger);
 app.use(express.json());
 app.use(cookieParser());
